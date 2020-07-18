@@ -1,0 +1,15 @@
+<div class="mt-4">
+<h6>Share:
+    <a class="btn btn-sm btn-light" target="_blank"
+       href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}">
+        Facebook
+    </a>
+    <a class="btn btn-sm btn-light" target="_blank"
+       href="https://twitter.com/intent/tweet?text={{ post.title }}%20{{ request.build_absolute_uri }}">
+        Tweet
+    </a>
+    <a class="btn btn-sm btn-light" target="_blank"
+       href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}/&title={{ post.title|urlencode }}">Reddit
+    </a>
+</h6>
+</div>

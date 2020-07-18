@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block header-footer %}
+    <div class="container text-center">
+        <div>
+            <h1 class="mt-5 jumbotron">Latest Posts</h1>
+            <form method="GET" class="container">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="q"
+                               placeholder="Search name, keywords" maxlength="100"
+                               value="{{ request.GET.q }}" required/>
+                    </div>
+                </div>
+            </form>
+            {% if post %}
+                <div class="container p-4 mt-4 w-75">
+                    {% for p in post %}
+                        <article class="text-left">
+                            <p><a href="{% url 'post_detail' title=p.slug %}">{{ p.title }}</a></p>
+                            <p>{{ p.description|safe|slice:'270' }}...</p>
+                            <p class="blockquote-footer">Created at {{ p.created_at|timesince }} By <a
+                                    href="#">{{ p.author }}</a></p>
+                            <hr>
+                            <br>
+                        </article>
+                    {% endfor %}
+                    {% include 'pagination.html' %}
+                    {% else %}
+                    {% if request.GET %}
+                        <h4 class="text-center card-body">Sorry, no result found for "{{ request.GET.q }}"</h4>
+                    {% else %}
+                        <h4 class="container">Sorry, no previous results were found.</h4>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock header-footer %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block header-footer %}
+    <div class="container mt-5">
+            <div class="m-auto">
+                {% if post.image %}
+                <img class="img-fluid" src="{{post.image.url}}">
+                {% endif %}
+                <div class="card-body mt-2 mb-2">
+                    <h2 class="pt-1 pb-4">{{ post.title }}</h2>
+                    <p class="card-text">{{ post.description|linebreaks }}</p>
+                    <div class="card-footer text-muted">
+                        Created on {{ post.created_at }} by <a href="#">{{ post.author }}</a><br>Updated {{ post.updated_at|timesince }} ago
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock header-footer %}
+
+

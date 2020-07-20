@@ -1,15 +1,18 @@
 # Django
+media
 *.log
 *.pot
-*.pyc
+.pyc
 __pycache__/
+*.pyc
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
 
-# Pycharm
+# Environments
+.env
+env*
+venv/
+
+# PyCharm
 .idea/*
-
-venv
-

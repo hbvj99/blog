@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from ckeditor.fields import RichTextField
 
 import sys
 from PIL import Image
@@ -26,7 +27,7 @@ def compress_image(img):
 class Post(models.Model):
     title = models.CharField(max_length=80)
     slug = models.SlugField(unique=True, null=True, blank=True, max_length=90, editable=False)
-    description = models.TextField(blank=False)
+    description = RichTextField(blank=False, max_length=1500)
     image = models.ImageField(upload_to='articles/%Y/%m/%d/', null=True, blank=True)
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True, auto_now=False)

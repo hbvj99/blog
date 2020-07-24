@@ -24,7 +24,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Personal blog</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Blogging</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            Hi, {% if request.user.first_name %}{% else %}{{ request.user }}{% endif %}
+                            Hi, {% if request.user.first_name %}{{ request.user.first_name }}{% else %}{{ request.user }}{% endif %}
 
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -56,7 +56,7 @@
                                 Change Password</a>
                             <a class="dropdown-item" href="{% url 'new_post' %}"><i class="fas fa-paste"></i> Create
                                 Post</a>
-                            <a class="dropdown-item" href="{% url 'home' %}"><i class="fas fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
                             {% if user.is_staff %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/admin"><i class="fas fa-user-shield"></i> Admin

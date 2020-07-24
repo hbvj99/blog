@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {% block title %}Change Account Info{% endblock title %}
 {% block header-footer %}
 
-    <div class="container mt-5 col-sm-5">
+    <div class="container mt-5 col-sm-4">
         <div class="card">
             <h5 class="card-header text-center">Edit user info</h5>
             <div class="card-body">
                <form action="." method="POST">
                     {% csrf_token %}
-                    {% bootstrap_form form %}
+                    {{ form|crispy }}
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>

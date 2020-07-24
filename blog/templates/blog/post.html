@@ -18,8 +18,7 @@
                         <article class="text-left">
                             <p><a href="{% url 'post_detail' title=p.slug %}">{{ p.title }}</a></p>
                             <p>{{ p.description|safe|slice:'270' }}...</p>
-                            <p class="blockquote-footer">Created at {{ p.created_at|timesince }} By <a
-                                    href="#">{{ p.author }}</a></p>
+                            <p class="blockquote-footer">Created at {{ p.created_at|timesince }} By <a href="{% url 'post' %}?author={{ p.user }}">{% if p.user.first_name %} {{ p.user.first_name }}{% else %}{{ p.user }}{% endif %}</a></p>
                             <hr>
                             <br>
                         </article>

@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from accounts.forms import CreateUser
+from accounts.forms import CreateUser, UserDetail
 
 
 def signup(request):
@@ -16,3 +17,16 @@ def signup(request):
         user_form = CreateUser()
     context = {'user_form': user_form}
     return render(request, 'accounts/signup.html', context)
+
+
+@login_required()
+def update_profile(request):
+    if request.method == 'POST':
+        form = UserDetail(request.POST, instance=request.user)
+        if form.is_valid():
+            form.user = request.user
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserDetail(instance=request.user)
+        return render(request, 'accounts/update_profile.html', {'form': form})

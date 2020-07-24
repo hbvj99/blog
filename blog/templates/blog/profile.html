@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block header-footer %}
+    <div class="container">
+        <div class="row my-3 mb-5">
+            <div class="col-md-4">
+                <img class="img-fluid rounded-circle w-75 p-3" {% if user.image %}src="{{ user.image.url }}"{% else %}src="/static/image/default-user.svg"{% endif %} alt="{{ user }}">
+                    <div></br>
+                    <a class="btn btn-light" href="{% url 'update_profile' %}" role="button">Edit profile info</a><hr>
+                    </div>
+                    <h5 class="font-weight-bold">{{ user.first_name }} {{ user.last_name }}</h5>
+                    <p class="blockquote-footer">Logged in since {{ user.last_login|timesince }} ago</p><br>
+                    <p><strong>Bio: </strong><br>{% if user.bio %}{{ user.bio }}{% else %}N/A{% endif %}</p>
+                    <p><strong>Email: </strong>{{ user.email }}</p>
+                    <p><strong>Joined:</strong> {{ user.date_joined|date }}</p>
+            </div>
+            {% if post %}
+            <div class="col-md-8 mb-5">
+                <div class="card">
+                    <h5 class="card-header text-center card-body">Your latest posts</h5>
+                </div>
+                {% for d in post %}
+                    <div class="row mt-4">
+                        <div class="col-lg-8 col-md-10 mx-auto card-text">
+                            <a href="{% url 'post_detail' title=d.slug %}"><h2
+                                    class="post-title">{{ d.title }}</h2></a>
+                            <div class="post-meta">Updated: {{ d.updated_at|timesince }}</div>
+                            <td>
+                                <a class="btn btn-outline-secondary btn-sm"
+                                   href="{% url 'post_update' d.slug %}" role="button">Edit</a>
+                                <a class="btn btn-outline-danger btn-sm"
+                                   href="{% url 'post_delete' d.slug %}" role="button">Delete</a>
+                            </td>
+                            <hr>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+                {% include 'pagination.html' %}
+            {% else %}
+                <p class="card-body">It looks like you haven't created any posts. <a href="{% url 'new_post' %}">Create new Post?</a></p>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock header-footer %}

@@ -1,18 +1,26 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
+import sys
+from PIL import Image
+from io import BytesIO
+
 
 USER = get_user_model()
 
 
-class Author(models.Model):
-    name = models.OneToOneField(USER, on_delete=models.CASCADE)
-    bio = models.CharField(max_length=120, blank=True)
-    created_at = models.DateField(auto_now=False, auto_now_add=True)
-    thumbnail = models.ImageField(blank=True, null=True)
-
-    def __str__(self):
-        return self.name
+def compress_image(img):
+    size = 1080, 960
+    image_temporary = Image.open(img).convert('RGB')
+    output_io_stream = BytesIO()
+    image_temporary.thumbnail(size, Image.ANTIALIAS)
+    image_temporary.save(output_io_stream, format='JPEG', quality=75)
+    output_io_stream.seek(0)
+    img = InMemoryUploadedFile(output_io_stream, 'ImageField', "%s.jpg" % img.name.split('.')[0], 'image/jpeg',
+                               sys.getsizeof(output_io_stream), None)
+    return img
 
 
 class Post(models.Model):
@@ -22,8 +30,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='articles/%Y/%m/%d/', null=True, blank=True)
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True, auto_now=False)
-    email = models.ForeignKey(USER, on_delete=models.CASCADE)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    user = models.ForeignKey(USER, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-updated_at']
@@ -43,4 +50,6 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = self._get_unique_slug()
+        if self.image:
+            self.image = compress_image(self.image)
         super().save(*args, **kwargs)

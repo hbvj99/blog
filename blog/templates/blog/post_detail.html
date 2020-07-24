@@ -7,7 +7,14 @@
                 {% endif %}
                 <div class="card-body mt-2 mb-2">
                     <h2 class="pt-1 pb-4">{{ post.title }}</h2>
-                    <p class="card-text">{{ post.description|linebreaks }}</p>
+                    <p class="card-text">{{ post.description|safe }}</p>
+                    {% if request.user == post.user %}
+                        <p>
+                            <a class="btn btn-outline-secondary btn-sm"
+                               href="{% url 'post_update' post.slug %}" role="button">Edit</a>
+                            <a class="btn btn-outline-danger btn-sm"
+                               href="{% url 'post_delete' post.slug %}" role="button">Delete</a></p>
+                    {% endif %}
                     {% include 'blog/share.html' %}
                     <div class="card-footer text-muted">
                         Created on {{ post.created_at }} by <a href="{% url 'post' %}?author={{ post.user }}">{% if post.user.first_name %} {{ post.user.first_name }}{% else %}{{ post.user }}{% endif %}</a><br>Updated {{ post.updated_at|timesince }} ago

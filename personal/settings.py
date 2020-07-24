@@ -20,7 +20,6 @@ DEBUG = DEBUG
 
 ALLOWED_HOSTS = ALLOWED_HOSTS
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -30,7 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'blog',
+    'crispy_forms',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -64,7 +66,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'personal.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -83,7 +84,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -96,3 +96,29 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Redirects
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Crispy Form template
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# CkEditor settings
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': 'auto',
+        'height': 'auto',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Image', 'TextColor', 'BGColor', 'Font', 'Preview'],
+            ['NumberedList', 'BulletedList', 'Outdent', 'Indent', 'JustifyLeft', 'JustifyCenter', 'JustifyRight',
+             'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    },
+}

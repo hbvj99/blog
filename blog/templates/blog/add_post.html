@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block header-footer %}
+    <div class="container col-lg-5">
+        <h2 class="mt-5">Discussion topic</h2><br>
+        <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+            {{ form|crispy }}
+            {{ form.media }}
+            <button type="submit" class="save btn btn-outline-secondary mt-4">Save</button>
+        </form>
+    </div><br>
+{% endblock header-footer %}

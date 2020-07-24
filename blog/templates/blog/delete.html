@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block header-footer %}
+    <div class="container">
+        <h1>Are you sure you want to delete "{{ object.title }}" post?</h1>
+        <hr>
+        <p>It is cannot be undo again.</p></br>
+        <form method='POST'>{% csrf_token %}
+            <button class="btn btn-danger">Yes, delete</button>
+            <input class="btn btn-outline-info" type="button" value="Cancel" onclick="window.history.go(-1);"/>
+        </form>
+    </div>
+{% endblock header-footer %}

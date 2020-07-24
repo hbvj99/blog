@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'blog',
-    'crispy_forms'
+    'crispy_forms',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -102,5 +103,22 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
+# Crispy Form template
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# CkEditor settings
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': 'auto',
+        'height': 'auto',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Image', 'TextColor', 'BGColor', 'Font', 'Preview'],
+            ['NumberedList', 'BulletedList', 'Outdent', 'Indent', 'JustifyLeft', 'JustifyCenter', 'JustifyRight',
+             'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    },
+}

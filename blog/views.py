@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
 
 from .forms import CreatePost
 from .models import Post
@@ -14,6 +15,7 @@ def home(request):
     return render(request, 'blog/index.html')
 
 
+@cache_page(60 * 60)
 def post(request):
     post = Post.objects.all()
     post_search = request.GET.get("q")
@@ -36,6 +38,7 @@ def post(request):
     return render(request, 'blog/post.html', {'post': post})
 
 
+@cache_page(60 * 160)
 def post_detail(request, title):
     post = Post.objects.get(slug=title)
     return render(request, 'blog/post_detail.html', {'post': post})

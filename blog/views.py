@@ -15,7 +15,7 @@ def home(request):
     return render(request, 'blog/index.html')
 
 
-@cache_page(60 * 60)
+@cache_page(60 * 20)
 def post(request):
     post = Post.objects.all()
     post_search = request.GET.get("q")
@@ -38,7 +38,7 @@ def post(request):
     return render(request, 'blog/post.html', {'post': post})
 
 
-@cache_page(60 * 160)
+@cache_page(60 * 30)
 def post_detail(request, title):
     post = Post.objects.get(slug=title)
     return render(request, 'blog/post_detail.html', {'post': post})

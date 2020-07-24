@@ -12,3 +12,6 @@ class CreatePost(forms.ModelForm):
             'description': 'Description',
             'image': 'Image'
         }
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Enter new post title'}),
+        }

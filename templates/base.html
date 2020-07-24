@@ -19,8 +19,10 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+
+<section>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">Personal blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -40,11 +42,43 @@
                     <li class="nav-item {% if url_name == 'post' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'post' %}">Blog</a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Hi, {% if request.user.first_name %}{% else %}{{ request.user }}{% endif %}
+
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Log
+                                out</a>
+                            <a class="dropdown-item" href="{% url 'password_change' %}"><i class="fas fa-key"></i>
+                                Change Password</a>
+                            <a class="dropdown-item" href="{% url 'new_post' %}"><i class="fas fa-paste"></i> Create
+                                Post</a>
+                            <a class="dropdown-item" href="{% url 'home' %}"><i class="fas fa-user"></i> Profile</a>
+                            {% if user.is_staff %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin"><i class="fas fa-user-shield"></i> Admin
+                                    dashboard</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% else %}
+                        <h3 class="m-1">
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary" role="button"><i
+                                    class="fas fa-sign-in-alt"></i> Login</a>
+                            <a href="{% url 'signup' %}" class="btn btn-outline-success" role="button"><i
+                                    class="fas fa-user-plus"></i> Signup</a>
+                        </h3>
+                    {% endif %}
                 {% endwith %}
             </ul>
         </div>
     </div>
 </nav>
+</section>
+
 {% block header-footer %}{% endblock header-footer %}
 </body>
 </html>

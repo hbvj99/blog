@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap4%}
+{% block title %}Change Profile Picture{% endblock title %}
+{% block header-footer %}
+<div class="row my-3 mb-5">
+    <div class="col-md-6 offset-md-3 mb-5">
+        <div class="card text-center">
+            <h5 class="card-header">Change profile picture</h5>
+            <div class="card-body">
+                <img class="img-fluid rounded-circle text-center" style="height: 20rem;" src="{{ request.user.profile.image.url }}" alt="{{request.user}}"><hr>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="save btn btn-default text-lg-center">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock header-footer %}

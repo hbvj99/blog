@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Blog, Author
+from blog.models import Post, Author
 
 
 class BlogAdmin(admin.ModelAdmin):
@@ -10,11 +10,11 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email')
-    list_filter = ('name', 'email')
-    search_fields = ('name', 'email')
+    list_display = ('name', 'bio')
+    list_filter = ('name', 'created_at')
+    search_fields = ('name', 'created_at')
 
 
-admin.site.register(Blog, BlogAdmin)
+admin.site.register(Post, BlogAdmin)
 admin.site.register(Author, AuthorAdmin)
-admin.site.site_header = 'Personal Blog'
+admin.site.site_header = 'Blog | Dashboard'

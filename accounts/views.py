@@ -22,9 +22,8 @@ def signup(request):
 @login_required()
 def update_profile(request):
     if request.method == 'POST':
-        form = UserDetail(request.POST, instance=request.user)
+        form = UserDetail(request.POST or None, request.FILES or None, instance=request.user)
         if form.is_valid():
-            form.user = request.user
             form.save()
             return redirect('profile')
     else:
